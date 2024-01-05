@@ -6,11 +6,11 @@ Rust password generator and keeper, plans to eventually add a TUI implementation
 
 # TODO
 
-[] Create random password generator from scratch
-[] Write passwords to file
-[] Encrypt file with master password
-[] Create a TUI that will be used for this 
-[] Optimize and make secure as possible
+[] Create random password generator from scratch<br>
+[] Write passwords to file<br>
+[] Encrypt file with master password<br>
+[] Create a TUI that will be used for this<br> 
+[] Optimize and make secure as possible<br> 
 
 ----------------------------
 
