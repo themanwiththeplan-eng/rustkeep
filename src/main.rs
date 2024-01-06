@@ -1,11 +1,12 @@
 use passwords::PasswordGenerator;
-use std::env;
-use std::io;
+use std::fs::File;
+// use std::path::Path;
+use std::{env, fs};
 
 fn main() {
-    let pass = create_password(17, true, true, true, true, false, true, false);
-
-    println!("{}", pass);
+    let args: Vec<String> = env::args().collect();
+    let name = &args[1];
+    to_file(name).expect("ERR: couldn't write to file");
 }
 fn create_password(
     length: usize,
@@ -17,8 +18,6 @@ fn create_password(
     exclude: bool,
     strict: bool,
 ) -> String {
-    let args: Vec<String> = env::args().collect();
-
     let pg = PasswordGenerator::new()
         .length(length)
         .numbers(numbers)
@@ -32,14 +31,14 @@ fn create_password(
     pass
 }
 
-fn true_false(s: &str) {
-    match s {
-        "true" => true,
-        "t" => true,
-        "false" => false,
-        "f" => false,
-        _ => false,
-    };
-}
+fn to_file(name: &String) -> std::io::Result<()> {
+    let file = "new.pwd";
+    let pass = create_password(17, true, true, true, true, false, true, false);
 
-fn to_file(name: String, pass: String) {}
+    let name_string = name.to_string();
+    let namepass = format!("{name_string}:{pass}");
+    File::create(file)?;
+    fs::write(file, namepass)?;
+
+    Ok(())
+}
