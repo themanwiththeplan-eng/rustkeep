@@ -3,9 +3,16 @@ use std::fs::File;
 // use std::path::Path;
 use std::{env, fs};
 
+mod encdec;
+
 fn main() {
     let args: Vec<String> = env::args().collect();
     let name = &args[1];
+    let buffer = &args[2];
+    let encdec_args = &args[3];
+
+    encdec::encdec(buffer, encdec_args);
+
     to_file(name).expect("ERR: couldn't write to file");
 }
 fn create_password(
