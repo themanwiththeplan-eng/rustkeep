@@ -5,6 +5,8 @@ use std::{env, fs};
 
 mod encdec;
 
+// FIXME: We should only need 3 args here. (filename, name of password, and encrypt/decrypt)
+
 fn main() {
     let args: Vec<String> = env::args().collect();
     let name = &args[1];
@@ -38,6 +40,8 @@ fn create_password(
     pass
 }
 
+//TODO: Make this function write file and put the encryption here
+
 fn to_file(name: &String) -> std::io::Result<()> {
     let file = "new.pwd";
     let pass = create_password(17, true, true, true, true, false, true, false);
@@ -49,3 +53,5 @@ fn to_file(name: &String) -> std::io::Result<()> {
 
     Ok(())
 }
+
+//TODO: Make a function read file and put decryption here

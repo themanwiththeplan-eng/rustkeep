@@ -15,6 +15,9 @@ pub fn encdec(buffer: &String, args: &String) {
         .encrypt(&mut rng, Pkcs1v15Encrypt, &data[..])
         .expect("ERR: failed to encrypt");
 
+    //FIXME: Move the below to main.rs if possible
+    //FIXME: Make this a match statement
+
     if args == "encrypt" {
         println!("{:#?}", enc);
     } else {
