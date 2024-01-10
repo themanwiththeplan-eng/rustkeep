@@ -1,6 +1,6 @@
 use passwords::PasswordGenerator;
 use std::fs::File;
-// use std::path::Path;
+// use std::io::Read;
 use std::{env, fs};
 
 mod encdec;
@@ -9,13 +9,19 @@ mod encdec;
 
 fn main() {
     let args: Vec<String> = env::args().collect();
-    let name = &args[1];
-    let buffer = &args[2];
-    let encdec_args = &args[3];
 
-    encdec::encdec(buffer, encdec_args);
+    let length = &args[1];
+    let filename = &args[2];
+    let passname = &args[3];
+    let encdec_args = &args[4];
+    // This string is for testing only for the encryption/decryption functions, delete this once
+    // you get this working with entire files
+    let test_string = &args[5];
 
-    to_file(name).expect("ERR: couldn't write to file");
+    encdec::encdec(test_string, encdec_args);
+
+    write_file(length.parse::<usize>().unwrap(), filename, passname)
+        .expect("ERR: couldn't write to file");
 }
 fn create_password(
     length: usize,
@@ -42,9 +48,9 @@ fn create_password(
 
 //TODO: Make this function write file and put the encryption here
 
-fn to_file(name: &String) -> std::io::Result<()> {
-    let file = "new.pwd";
-    let pass = create_password(17, true, true, true, true, false, true, false);
+fn write_file(length: usize, filename: &String, name: &String) -> std::io::Result<()> {
+    let file = filename;
+    let pass = create_password(length, true, true, true, true, false, true, false);
 
     let name_string = name.to_string();
     let namepass = format!("{name_string}:{pass}");
@@ -55,3 +61,11 @@ fn to_file(name: &String) -> std::io::Result<()> {
 }
 
 //TODO: Make a function read file and put decryption here
+
+// fn read_file(filename: &String) -> std::io::Result<()> {
+//     let file = filename;
+//     let content = fs::read_to_string(file).unwrap();
+//
+//     println!("{:?}", content);
+//     Ok(())
+// }
