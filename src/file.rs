@@ -18,10 +18,10 @@ pub fn write_file(filename: &String, password: String) -> std::io::Result<()> {
 
 //TODO: Make a function read file and put decryption here
 
-fn read_file(filename: &String) -> std::io::Result<()> {
-    let file = filename;
-    let content = fs::read_to_string(file).unwrap();
-
-    println!("{:?}", content);
-    Ok(())
-}
+// fn read_file(filename: &String) -> std::io::Result<()> {
+//     let file = filename;
+//     let content = fs::read_to_string(file).unwrap();
+//
+//     println!("{:?}", content);
+//     Ok(())
+// }

@@ -12,16 +12,28 @@ fn main() {
     let filename = &args[2];
     let passname = &args[3];
     let encdec_args = &args[4];
-    // This string is for testing only for the encryption/decryption functions, delete this once
-    // you get this working with entire files
-    let test_string = &args[5];
 
-    encdec::encdec(test_string, encdec_args);
-    file::write_file(length.parse::<usize>().unwrap(), filename, passname)
-        .expect("ERR: could not write to file");
+    let pass = create_password(
+        length.parse::<usize>().unwrap(),
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+    );
+
+    let together = format!("{passname}:{pass}");
+
+    let encrypted_pass = encdec::encdec(together, encdec_args);
+
+    //FIXME: Fix this to take a string rather than a result somehow
+
+    file::write_file(filename, encrypted_pass).expect("ERR: unable to write file");
 }
 
-pub fn create_password(
+fn create_password(
     length: usize,
     numbers: bool,
     lower: bool,
@@ -40,6 +52,7 @@ pub fn create_password(
         .spaces(spaces)
         .exclude_similar_characters(exclude)
         .strict(strict);
+
     let pass = pg.generate_one().unwrap();
     pass
 }

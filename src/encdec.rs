@@ -3,7 +3,7 @@ use rsa::{Pkcs1v15Encrypt, RsaPrivateKey, RsaPublicKey};
 // TODO: restructure this to be embedded in the other functions other than main, more specifically
 // the read and write file functions
 
-pub fn encdec(buffer: String, args: &str) {
+pub fn encdec(buffer: String, args: &str) -> String {
     let mut rng = rand::thread_rng();
     let strength = 2048;
 
@@ -37,4 +37,5 @@ pub fn encdec(buffer: String, args: &str) {
         }
         _ => {}
     }
+    buffer
 }
