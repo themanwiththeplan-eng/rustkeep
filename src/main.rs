@@ -1,3 +1,4 @@
+use passwords::PasswordGenerator;
 use std::env;
 
 mod encdec;
@@ -18,4 +19,27 @@ fn main() {
     encdec::encdec(test_string, encdec_args);
     file::write_file(length.parse::<usize>().unwrap(), filename, passname)
         .expect("ERR: could not write to file");
+}
+
+pub fn create_password(
+    length: usize,
+    numbers: bool,
+    lower: bool,
+    upper: bool,
+    symbols: bool,
+    spaces: bool,
+    exclude: bool,
+    strict: bool,
+) -> String {
+    let pg = PasswordGenerator::new()
+        .length(length)
+        .numbers(numbers)
+        .lowercase_letters(lower)
+        .uppercase_letters(upper)
+        .symbols(symbols)
+        .spaces(spaces)
+        .exclude_similar_characters(exclude)
+        .strict(strict);
+    let pass = pg.generate_one().unwrap();
+    pass
 }
