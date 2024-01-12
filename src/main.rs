@@ -11,7 +11,7 @@ fn main() {
     let length = &args[1];
     let filename = &args[2];
     let passname = &args[3];
-    let encdec_args = &args[4];
+    // let encdec_args = &args[4];
 
     let pass = create_password(
         length.parse::<usize>().unwrap(),
@@ -26,11 +26,10 @@ fn main() {
 
     let together = format!("{passname}:{pass}");
 
-    let encrypted_pass = encdec::encdec(together, encdec_args);
+    // FIXME: Fix this to take a string rather than a result () somehow enc inside encdec.rs is a
+    //Vec<u8> and doesn't return a string figure out how to fix this
 
-    //FIXME: Fix this to take a string rather than a result somehow
-
-    file::write_file(filename, encrypted_pass).expect("ERR: unable to write file");
+    file::write_file(filename, together).expect("ERR: unable to write file");
 }
 
 fn create_password(
